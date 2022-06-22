@@ -1,0 +1,97 @@
+# Configuration.
+
+_envops:
+  trim_blocks: true
+
+_subdirectory: "template"
+
+_tasks:
+- ["{{ _copier_python }}", "_copier_tasks.py"]
+
+# Prompt.
+
+project_name:
+  help: "Project name"
+  type: "str"
+  placeholder: "Lorem Ipsum"
+
+project_type:
+  help: "Project type"
+  type: "str"
+  choices:
+  - "bin"
+  - "lib"
+  default: "bin"
+
+project_description:
+  help: "Project description"
+  type: "str"
+  placeholder: "Lorem ipsum dolor sit amet."
+
+author_fullname:
+  help: "Your full name"
+  type: "str"
+  placeholder: "John Doe"
+
+author_email:
+  help: "Your email"
+  type: "str"
+  placeholder: "john@doe.tld"
+
+repository_provider:
+  help: "Code hosting platform"
+  type: "str"
+  choices:
+  - "github.com"
+  - "none"
+  default: "github.com"
+
+repository_namespace:
+  help: "Namespace of the repository"
+  type: "str"
+  when: "{{ repository_provider }} != 'none'"
+
+repository_name:
+  help: "Name of the repository"
+  type: "str"
+  when: "{{ repository_provider }} != 'none'"
+  default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+
+copyright_license:
+  help: "Project license"
+  type: "str"
+  choices:
+  - "MIT"
+  - "Proprietary"
+  default: "Proprietary"
+
+copyright_holder:
+  help: "Name of the person/entity holding the copyright"
+  type: "str"
+  default: "{{ author_fullname }}"
+
+copyright_date:
+  help: "Copyright date"
+  type: "str"
+  default: "2022"
+
+python_version:
+  help: "Python version specifier"
+  type: "str"
+  default: ">=3.10"
+
+distribution_name:
+  help: "Python package distribution name (on PyPI)"
+  type: "str"
+  default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+
+module_name:
+  help: "Python module name (for imports in Python code)"
+  type: "str"
+  default: "{{ project_name | lower | replace('-', '_') | replace(' ', '_') }}"
+
+script_name:
+  help: "Python script name (for CLI)"
+  type: "str"
+  when: "{{ project_type == 'bin' }}"
+  default: "{{ project_name | lower | replace('_', '-') |replace(' ', '-') }}"

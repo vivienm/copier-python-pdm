@@ -1,0 +1,54 @@
+[project]
+name = "{{ distribution_name }}"
+description = "{{ project_description }}"
+readme = "README.md"
+requires-python = "{{ python_version }}"
+license = {text = "{{ copyright_license }}"}
+authors = [{name = "{{ author_fullname }}", email = "{{ author_email }}"}]
+dynamic = ["version"]
+dependencies = []
+{% if repository_provider != 'none' %}
+
+[project.urls]
+Repository = "https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}"
+{% endif %}
+{% if project_type == "bin" %}
+
+[project.scripts]
+{{ script_name }} = "{{ module_name }}.__main__:main"
+{% endif %}
+
+[project.optional-dependencies]
+
+
+[build-system]
+requires = ["pdm-pep517>=0.12.0"]
+build-backend = "pdm.pep517.api"
+
+
+[tool.pdm]
+version = {use_scm = true}
+package-dir = "src"
+editable-backend = "editables"
+
+[tool.pdm.dev-dependencies]
+
+
+[tool.isort]
+profile = "black"
+
+
+[tool.mypy]
+exclude = ["__pypackages__"]
+
+[[tool.mypy.overrides]]
+module = ["nox"]
+ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+addopts = """\
+    --doctest-modules \
+    --ignore=__pypackages__ \
+    --ignore=noxfile.py \
+"""

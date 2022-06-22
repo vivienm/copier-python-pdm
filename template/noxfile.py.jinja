@@ -1,0 +1,119 @@
+import os
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import nox
+
+os.environ.update(
+    {
+        "PDM_IGNORE_SAVED_PYTHON": "1",
+        "PDM_USE_VENV": "1",
+    }
+)
+os.environ.pop("PYTHONPATH", None)
+
+
+@nox.session(reuse_venv=True)
+def black(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "black",
+        "--no-default",
+        "--no-self",
+        external=True,
+    )
+    session.run("black", "--check", ".")
+
+
+@nox.session(reuse_venv=True)
+def isort(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "isort",
+        "--no-default",
+        "--no-self",
+        external=True,
+    )
+    session.run("isort", "--check", ".")
+
+
+@nox.session(reuse_venv=True)
+def flake8(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "flake8",
+        "--no-default",
+        "--no-self",
+        external=True,
+    )
+    session.run("flake8")
+
+
+@nox.session(reuse_venv=True)
+def mypy(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "mypy",
+        "--no-self",
+        external=True,
+    )
+    session.run("mypy", ".")
+
+
+@nox.session(reuse_venv=True)
+def pytest(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "pytest",
+        "--no-self",
+        external=True,
+    )
+    session.run("pytest", success_codes=[0, 5])
+
+
+@nox.session(reuse_venv=True)
+def audit(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "audit",
+        "--no-default",
+        "--no-self",
+        external=True,
+    )
+    with TemporaryDirectory(prefix="nox_") as tmpdir:
+        requirements = Path(tmpdir) / "requirements.txt"
+        session.run(
+            "pdm",
+            "export",
+            "-dG",
+            ":all",
+            "--without-hashes",
+            "-o",
+            str(requirements),
+            silent=True,
+            external=True,
+        )
+        session.run(
+            "pip-audit",
+            "-r",
+            str(requirements),
+            external=True,
+        )
