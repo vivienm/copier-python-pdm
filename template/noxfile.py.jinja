@@ -4,6 +4,9 @@ from tempfile import TemporaryDirectory
 
 import nox
 
+nox.options.default_venv_backend = "venv"
+nox.options.reuse_existing_virtualenvs = True
+
 os.environ.update(
     {
         "PDM_IGNORE_SAVED_PYTHON": "1",
@@ -13,7 +16,7 @@ os.environ.update(
 os.environ.pop("PYTHONPATH", None)
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def black(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -28,7 +31,7 @@ def black(session: nox.Session) -> None:
     session.run("black", "--check", ".")
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def isort(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -43,7 +46,7 @@ def isort(session: nox.Session) -> None:
     session.run("isort", "--check", ".")
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def flake8(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -58,7 +61,7 @@ def flake8(session: nox.Session) -> None:
     session.run("flake8")
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def mypy(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -72,7 +75,7 @@ def mypy(session: nox.Session) -> None:
     session.run("mypy", ".")
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def pytest(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -86,7 +89,7 @@ def pytest(session: nox.Session) -> None:
     session.run("pytest", success_codes=[0, 5])
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 def audit(session: nox.Session) -> None:
     session.run(
         "pdm",

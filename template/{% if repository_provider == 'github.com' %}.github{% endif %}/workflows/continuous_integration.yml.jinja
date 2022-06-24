@@ -38,4 +38,6 @@ jobs:
     - name: "Install Nox"
       run: "pdm sync -G nox --no-default --no-self"
     - name: "Run Nox"
-      run: "nox -s ${{ '{{' }} matrix.nox-session {{ '}}' }}"
+      run: "pdm run nox"
+      env:
+        NOXSESSION: "${{ '{{' }} matrix.nox-session {{ '}}' }}"
