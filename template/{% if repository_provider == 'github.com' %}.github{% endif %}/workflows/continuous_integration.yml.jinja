@@ -6,31 +6,38 @@ on:
 
 jobs:
   nox:
-    name: "Nox"
     strategy:
       matrix:
         include:
-        - os: "ubuntu-latest"
+        - name: "Run black"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "black"
-        - os: "ubuntu-latest"
+        - name: "Run isort"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "isort"
-        - os: "ubuntu-latest"
+        - name: "Run flake8"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "flake8"
-        - os: "ubuntu-latest"
+        - name: "Run mypy"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "mypy"
-        - os: "ubuntu-latest"
+        - name: "Run pytest"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "pytest"
-        - os: "ubuntu-latest"
+        - name: "Run audit"
+          os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "audit"
+    name: "${{ '{{' }} matrix.name {{ '}}' }}"
     runs-on: "${{ '{{' }} matrix.os {{ '}}' }}"
     steps:
-    - uses: actions/checkout@v3
+    - name: "Checkout the repository"
+      uses: actions/checkout@v3
     - name: "Set up PDM"
       uses: "pdm-project/setup-pdm@main"
       with:
