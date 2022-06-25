@@ -6,7 +6,13 @@ requires-python = "{{ python_version }}"
 license = {text = "{{ copyright_license }}"}
 authors = [{name = "{{ author_fullname }}", email = "{{ author_email }}"}]
 dynamic = ["version"]
+{% if project_type == "bin" %}
+dependencies = [
+    "click",
+]
+{% else %}
 dependencies = []
+{% endif %}
 {% if repository_provider != 'none' %}
 
 [project.urls]
@@ -32,6 +38,29 @@ package-dir = "src"
 editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]
+black = [
+    "black",
+]
+flake8 = [
+    "flake8",
+    "flake8-docstrings",
+]
+isort = [
+    "isort",
+]
+mypy = [
+    "mypy",
+    "pytest",
+]
+pytest = [
+    "pytest",
+]
+audit = [
+    "pip-audit",
+]
+nox = [
+    "nox",
+]
 
 
 [tool.isort]
