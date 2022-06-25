@@ -37,7 +37,7 @@ jobs:
     runs-on: "${{ '{{' }} matrix.os {{ '}}' }}"
     steps:
     - name: "Checkout the repository"
-      uses: actions/checkout@v3
+      uses: "actions/checkout@v3"
     - name: "Set up PDM"
       uses: "pdm-project/setup-pdm@main"
       with:
