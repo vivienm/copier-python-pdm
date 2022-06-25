@@ -1,8 +1,16 @@
+import click
+
 from . import HELLO
 
 
+@click.command(context_settings={"help_option_names": ["-h", "--help"]})
+def cli() -> None:
+    """{{ project_description }}"""
+    click.echo(HELLO)
+
+
 def main():
-    print(HELLO)
+    cli()
 
 
 if __name__ == "__main__":
