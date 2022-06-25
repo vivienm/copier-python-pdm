@@ -1,16 +1,25 @@
 import subprocess
+import sys
 from pathlib import Path
+
+Path(__file__).unlink()
+
+# Do not run this script on updates.
+if (Path(__file__).parent / ".git").exists():
+    sys.exit()
+
 
 def pdm_add(*args):
     subprocess.run(["pdm", "add", *args], check=True)
 
+
 def git(*args):
     subprocess.run(["git", *args], check=True)
+
 
 {% if project_type == "bin" %}
 pdm_add("click")
 {% endif %}
-
 pdm_add("-dG", "black", "black")
 pdm_add("-dG", "flake8", "flake8", "flake8-docstrings")
 pdm_add("-dG", "isort", "isort")
@@ -18,8 +27,6 @@ pdm_add("-dG", "mypy", "mypy", "pytest")
 pdm_add("-dG", "pytest", "pytest")
 pdm_add("-dG", "audit", "pip-audit")
 pdm_add("-dG", "nox", "nox")
-
-Path(__file__).unlink()
 
 git("init")
 git("add", ".")
