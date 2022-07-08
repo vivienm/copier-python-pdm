@@ -55,7 +55,7 @@ repository_name:
   help: "Name of the repository"
   type: "str"
   when: "{{ repository_provider }} != 'none'"
-  default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+  default: "{% if project_type == 'lib' %}python-{% endif %}{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
 
 copyright_license:
   help: "Project license"
