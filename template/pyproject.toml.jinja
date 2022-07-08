@@ -76,8 +76,5 @@ ignore_missing_imports = true
 
 
 [tool.pytest.ini_options]
-addopts = """\
-    --doctest-modules \
-    --ignore=__pypackages__ \
-    --ignore=noxfile.py \
-"""
+addopts = "--doctest-modules"
+testpaths = "src tests"
