@@ -3,7 +3,7 @@ name = "{{ distribution_name }}"
 description = "{{ project_description }}"
 readme = "README.md"
 requires-python = "{{ python_version }}"
-license = {text = "{{ copyright_license }}"}
+license = {text = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"}
 authors = [{name = "{{ author_fullname }}", email = "{{ author_email }}"}]
 dynamic = ["version"]
 {% if project_type == "bin" %}
