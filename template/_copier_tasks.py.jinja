@@ -9,5 +9,4 @@ if (Path(__file__).parent / ".git").exists():
     sys.exit()
 
 
-subprocess.run(["pdm", "update", "--unconstrained"], check=True)
 subprocess.run(["git", "init"], check=True)
