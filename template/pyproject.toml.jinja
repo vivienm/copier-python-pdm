@@ -4,7 +4,9 @@ description = "{{ project_description }}"
 readme = "README.md"
 requires-python = "{{ python_version }}"
 license = {text = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"}
-authors = [{name = "{{ author_fullname }}", email = "{{ author_email }}"}]
+authors = [
+    {name = "{{ author_fullname }}", email = "{{ author_email }}"},
+]
 dynamic = ["version"]
 {% if project_type == "bin" %}
 dependencies = [
@@ -33,7 +35,6 @@ build-backend = "pdm.pep517.api"
 
 
 [tool.pdm]
-version = {source = "scm"}
 package-dir = "src"
 
 [tool.pdm.build]
@@ -63,6 +64,9 @@ audit = [
 nox = [
     "nox>=2022.1.7",
 ]
+
+[tool.pdm.version]
+source = "scm"
 
 
 [tool.isort]
