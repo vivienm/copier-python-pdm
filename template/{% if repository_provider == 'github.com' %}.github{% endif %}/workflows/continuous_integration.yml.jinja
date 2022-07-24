@@ -43,8 +43,8 @@ jobs:
       with:
         python-version: "${{ '{{' }} matrix.python-version {{ '}}' }}"
     - name: "Install Nox"
-      run: "pdm sync -G nox --no-default --no-self"
+      run: "pip install --user nox"
     - name: "Run Nox"
-      run: "pdm run nox"
+      run: "nox"
       env:
         NOXSESSION: "${{ '{{' }} matrix.nox-session {{ '}}' }}"
