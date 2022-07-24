@@ -54,9 +54,3 @@ To install PDM, you may follow its [installation instructions](https://pdm.fming
 ```shell
 pipx install pdm
 ```
-
-You will also need to [enable PEP 582 globally](https://pdm.fming.dev/latest/#enable-pep-582-globally), e.g. on Bash:
-
-```shell
-pdm --pep582 >> ~/.bash_profile
-```
