@@ -8,13 +8,7 @@ nox.options.sessions = ["black", "isort", "flake8", "mypy", "pytest"]
 nox.options.default_venv_backend = "venv"
 nox.options.reuse_existing_virtualenvs = True
 
-os.environ.update(
-    {
-        "PDM_IGNORE_SAVED_PYTHON": "1",
-        "PDM_USE_VENV": "1",
-    }
-)
-os.environ.pop("PYTHONPATH", None)
+os.environ.update({"PDM_IGNORE_SAVED_PYTHON": "1"})
 
 
 @nox.session()
