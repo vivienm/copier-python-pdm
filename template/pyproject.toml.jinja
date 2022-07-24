@@ -73,6 +73,9 @@ source = "scm"
 profile = "black"
 
 
+[tool.mypy]
+exclude = ["^build/"]
+
 [[tool.mypy.overrides]]
 module = ["nox"]
 ignore_missing_imports = true
