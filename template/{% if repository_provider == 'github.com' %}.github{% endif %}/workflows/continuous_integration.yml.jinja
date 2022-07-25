@@ -29,10 +29,10 @@ jobs:
           os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "pytest"
-        - name: "Run audit"
+        - name: "Run safety"
           os: "ubuntu-latest"
           python-version: "3.10"
-          nox-session: "audit"
+          nox-session: "safety"
     name: "${{ '{{' }} matrix.name {{ '}}' }}"
     runs-on: "${{ '{{' }} matrix.os {{ '}}' }}"
     steps:
