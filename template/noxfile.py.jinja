@@ -20,6 +20,7 @@ def black(session: nox.Session) -> None:
         "-G",
         "black",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -35,6 +36,7 @@ def isort(session: nox.Session) -> None:
         "-G",
         "isort",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -50,6 +52,7 @@ def flake8(session: nox.Session) -> None:
         "-G",
         "flake8",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -64,6 +67,7 @@ def mypy(session: nox.Session) -> None:
         "--clean",
         "-G",
         "mypy",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -78,6 +82,7 @@ def pytest(session: nox.Session) -> None:
         "--clean",
         "-G",
         "pytest",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -93,6 +98,7 @@ def audit(session: nox.Session) -> None:
         "-G",
         "audit",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
