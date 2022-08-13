@@ -29,6 +29,12 @@ jobs:
           os: "ubuntu-latest"
           python-version: "3.10"
           nox-session: "pytest"
+{% if project_type == "lib" %}
+        - name: "Run sphinx"
+          os: "ubuntu-latest"
+          python-version: "3.10"
+          nox-session: "sphinx"
+{% endif %}
         - name: "Run safety"
           os: "ubuntu-latest"
           python-version: "3.10"

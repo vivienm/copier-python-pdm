@@ -55,6 +55,12 @@ mypy = [
 pytest = [
     "pytest>=7.1.2",
 ]
+{% if project_type == "lib" %}
+sphinx = [
+    "furo>=2022.6.21",
+    "sphinx>=5.1.0",
+]
+{% endif %}
 safety = [
     "safety>=2.1.1",
 ]

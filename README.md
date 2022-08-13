@@ -6,12 +6,13 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
 
 * [`src` directory layout](https://hynek.me/articles/testing-packaging/).
 * [PDM](https://pdm.fming.dev/latest/) setup, with generated `pyproject.toml`.
-* Pre-configured tools for code formatting, quality analysis and testing:
+* Pre-configured tools for code formatting, quality analysis, documentation and testing:
   * [black](https://github.com/psf/black)
   * [isort](https://pycqa.github.io/isort/)
   * [flake8](https://flake8.pycqa.org/en/latest/) with [pydocstyle](https://github.com/PyCQA/pydocstyle/) plugin
   * [mypy](https://mypy.readthedocs.io/)
   * [pytest](https://docs.pytest.org/en/stable/)
+  * [sphinx](https://sphinx-doc.org/)
   * [safety](https://pyup.io/safety/)
 * Tests run with [Nox](https://nox.thea.codes/en/stable/).
 * Support for [GitHub actions](https://github.com/features/actions).

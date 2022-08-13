@@ -1,0 +1,15 @@
+project = "{{ project_name }}"
+author = "{{ author_fullname }}"
+copyright = "{{ copyright_date }}, {{ copyright_holder }}"
+
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.napoleon",
+]
+
+html_theme = "furo"
+
+intersphinx_mapping = {
+    "https://docs.python.org/3": None,
+}
