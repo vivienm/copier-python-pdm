@@ -73,7 +73,7 @@ def mypy(session: nox.Session) -> None:
     session.run("mypy", ".")
 
 
-@nox.session()
+@nox.session(python=["3.10"])
 def pytest(session: nox.Session) -> None:
     session.run(
         "pdm",
