@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: "ci-${{ '{{' }} github.ref {{ '}}' }}"
+  cancel-in-progress: true
+
 jobs:
   black:
     runs-on: "ubuntu-latest"
@@ -57,6 +61,12 @@ jobs:
     - uses: "./.github/actions/nox"
       with:
         nox-session: "sphinx"
+{% if pages_enabled %}
+    - if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+      uses: "actions/upload-pages-artifact@v1"
+      with:
+        path: "./docs/_build/html"
+{% endif %}
 {% endif %}
 
   safety:
@@ -66,3 +76,19 @@ jobs:
     - uses: "./.github/actions/nox"
       with:
         nox-session: "safety"
+{% if pages_enabled %}
+
+  pages:
+    if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+    needs: "sphinx"
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{ '{{' }} steps.deployment.outputs.page_url {{ '}}' }}"
+    runs-on: "ubuntu-latest"
+    steps:
+    - id: "deployment"
+      uses: "actions/deploy-pages@v1"
+{% endif %}

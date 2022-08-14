@@ -18,7 +18,10 @@ dependencies = []
 {% if repository_provider != 'none' %}
 
 [project.urls]
-Repository = "https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}"
+repository = "https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}"
+{% if repository_provider == "github.com" and pages_enabled %}
+documentation = "https://{{ repository_namespace }}.github.io/{{ repository_name }}/"
+{% endif %}
 {% endif %}
 {% if project_type == "bin" %}
 

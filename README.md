@@ -15,7 +15,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
   * [sphinx](https://sphinx-doc.org/) with [furo](https://pradyunsg.me/furo/) theme
   * [safety](https://pyup.io/safety/)
 * Tests run with [Nox](https://nox.thea.codes/en/stable/).
-* Support for [GitHub actions](https://github.com/features/actions).
+* Support for [GitHub actions](https://github.com/features/actions) and [GitHub pages](https://pages.github.com/).
 
 ## Quickstart
 

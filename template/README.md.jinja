@@ -1,3 +1,7 @@
 # {{ project_name }}
 
 {{ project_description }}
+{% if repository_provider == "github.com" and pages_enabled %}
+
+[Documentation](https://{{ repository_namespace }}.github.io/{{ repository_name }}/)
+{% endif %}

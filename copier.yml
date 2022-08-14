@@ -57,6 +57,12 @@ repository_name:
   when: "{{ repository_provider }} != 'none'"
   default: "{% if project_type == 'lib' %}python-{% endif %}{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
 
+pages_enabled:
+  help: "Publish documentation on Pages"
+  type: "bool"
+  when: "{{ project_type == 'lib' and repository_provider == 'github.com' }}"
+  default: "{{ project_type == 'lib' and repository_provider == 'github.com' }}"
+
 copyright_license:
   help: "Project license"
   type: "str"
