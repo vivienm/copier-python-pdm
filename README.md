@@ -12,7 +12,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
   * [flake8](https://flake8.pycqa.org/en/latest/) with [pydocstyle](https://github.com/PyCQA/pydocstyle/) plugin
   * [mypy](https://mypy.readthedocs.io/)
   * [pytest](https://docs.pytest.org/en/stable/)
-  * [sphinx](https://sphinx-doc.org/)
+  * [sphinx](https://sphinx-doc.org/) with [furo](https://pradyunsg.me/furo/) theme
   * [safety](https://pyup.io/safety/)
 * Tests run with [Nox](https://nox.thea.codes/en/stable/).
 * Support for [GitHub actions](https://github.com/features/actions).
