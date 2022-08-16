@@ -86,7 +86,7 @@ def pytest(session: nox.Session) -> None:
         external=True,
     )
     session.run("pytest", success_codes=[0, 5])
-{% if project_type == "lib" %}
+{% if project_type == "lib" or pages_enabled %}
 
 
 @nox.session()

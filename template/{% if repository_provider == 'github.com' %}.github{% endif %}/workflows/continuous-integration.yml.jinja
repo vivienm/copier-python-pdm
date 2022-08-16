@@ -52,7 +52,7 @@ jobs:
       with:
         nox-session: "pytest-${{ '{{' }} matrix.python-version {{ '}}' }}"
         python-version: "${{ '{{' }} matrix.python-version {{ '}}' }}"
-{% if project_type == "lib" %}
+{% if project_type == "lib" or pages_enabled %}
 
   sphinx:
     runs-on: "ubuntu-latest"
