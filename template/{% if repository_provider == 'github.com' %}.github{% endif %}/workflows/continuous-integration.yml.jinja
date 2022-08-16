@@ -52,6 +52,22 @@ jobs:
       with:
         nox-session: "pytest-${{ '{{' }} matrix.python-version {{ '}}' }}"
         python-version: "${{ '{{' }} matrix.python-version {{ '}}' }}"
+    - uses: "actions/upload-artifact@v3"
+      with:
+        name: "coverage"
+        path: "./.coverage.*"
+
+  coverage:
+    needs: "pytest"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "actions/download-artifact@v3"
+      with:
+        name: "coverage"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "coverage"
 {% if project_type == "lib" or pages_enabled %}
 
   sphinx:

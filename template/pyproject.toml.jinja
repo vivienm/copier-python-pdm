@@ -56,7 +56,11 @@ mypy = [
     "pytest>=7.1.2",
 ]
 pytest = [
+    "coverage[toml]>=6.4.4",
     "pytest>=7.1.2",
+]
+coverage = [
+    "coverage[toml]>=6.4.4",
 ]
 {% if project_type == "lib" %}
 sphinx = [
@@ -93,3 +97,11 @@ testpaths = [
     "src",
     "tests",
 ]
+
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
