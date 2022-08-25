@@ -2,6 +2,12 @@
 {{ project_name | length * "=" }}
 
 {{ project_description }}
+{% if repository_provider != "none" %}
+
+Repository_
+
+.. _Repository: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+{% endif %}
 
 
 API reference
