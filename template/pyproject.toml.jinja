@@ -15,12 +15,14 @@ dependencies = [
 {% else %}
 dependencies = []
 {% endif %}
-{% if repository_provider != 'none' %}
+{% if repository_hosted or pages_enabled %}
 
 [project.urls]
-repository = "https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}"
-{% if repository_provider == "github.com" and pages_enabled %}
-documentation = "https://{{ repository_namespace }}.github.io/{{ repository_name }}/"
+{% if repository_hosted %}
+repository = "{{ repository_url }}"
+{% endif %}
+{% if pages_enabled %}
+documentation = "{{ pages_url }}/"
 {% endif %}
 {% endif %}
 {% if project_type == "bin" %}

@@ -10,6 +10,7 @@ if (Path(__file__).parent / ".git").exists():
 
 
 subprocess.run(["git", "init"], check=True)
-if "{{ repository_provider }}" == "github.com":
-    origin = "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
-    subprocess.run(["git", "remote", "add", "origin", origin])
+{% if repository_hosted and repository_provider == "github.com" %}
+origin = "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
+subprocess.run(["git", "remote", "add", "origin", origin])
+{% endif %}

@@ -38,29 +38,54 @@ author_email:
   type: "str"
   placeholder: "john@doe.tld"
 
+repository_hosted:
+  help: "Host the repository online"
+  type: "bool"
+  default: true
+
 repository_provider:
   help: "Code hosting platform"
   type: "str"
+  when: "{{ repository_hosted }}"
   choices:
   - "github.com"
-  - "none"
-  default: "github.com"
+  default: "{% if repository_hosted %}github.com{% endif %}"
 
 repository_namespace:
   help: "Namespace of the repository"
   type: "str"
-  when: "{{ repository_provider }} != 'none'"
+  when: "{{ repository_hosted }}"
 
 repository_name:
   help: "Name of the repository"
   type: "str"
-  when: "{{ repository_provider }} != 'none'"
+  when: "{{ repository_hosted }}"
   default: "{% if project_type == 'lib' %}python-{% endif %}{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+
+repository_url:
+  help: "URL of the repository"
+  type: "str"
+  when: "{{ repository_hosted }}"
+  default: "{% if repository_hosted %}https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}{% endif %}"
 
 pages_enabled:
   help: "Publish documentation on Pages"
   type: "bool"
-  default: "{{ project_type == 'lib' and repository_provider == 'github.com' }}"
+  default: "{{ project_type == 'lib' and repository_hosted and repository_provider == 'github.com' }}"
+
+pages_provider:
+  help: "Page hosting provider"
+  type: "str"
+  when: "{{ pages_enabled }}"
+  choices:
+  - "github.io"
+  default: "{% if pages_enabled %}github.io{% endif %}"
+
+pages_url:
+  help: "URL of Pages"
+  type: "str"
+  when: "{{ pages_enabled }}"
+  default: "{% if pages_enabled %}https://{{ repository_namespace }}.{{ pages_provider }}/{{ repository_name }}{% endif %}"
 
 copyright_license:
   help: "Project license"

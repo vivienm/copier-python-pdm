@@ -4,7 +4,7 @@ copyright = "{{ copyright_date }}, {{ copyright_holder }}"
 
 extensions = [
     "sphinx.ext.autodoc",
-{% if repository_provider == "github.com" and pages_enabled %}
+{% if pages_enabled and pages_provider == "github.io" %}
     "sphinx.ext.githubpages",
 {% endif %}
     "sphinx.ext.intersphinx",

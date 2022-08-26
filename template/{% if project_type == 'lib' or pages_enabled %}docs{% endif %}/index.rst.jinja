@@ -2,11 +2,11 @@
 {{ project_name | length * "=" }}
 
 {{ project_description }}
-{% if repository_provider != "none" %}
+{% if repository_hosted %}
 
 Repository_
 
-.. _Repository: https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+.. _Repository: {{ repository_url }}
 {% endif %}
 
 
