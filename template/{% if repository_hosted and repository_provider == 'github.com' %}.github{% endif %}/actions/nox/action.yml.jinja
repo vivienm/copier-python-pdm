@@ -16,8 +16,9 @@ runs:
     with:
       python-version: "${{ '{{' }} inputs.python-version {{ '}}' }}"
 {% if project_type == "lib" %}
-  - run: "pdm lock"
-    shell: "bash"
+  - uses: "actions/download-artifact@v3"
+    with:
+      name: "pdm-lockfile"
 {% endif %}
   - run: "pip install --user nox"
     shell: "bash"
