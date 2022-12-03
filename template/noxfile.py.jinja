@@ -43,19 +43,19 @@ def isort(session: nox.Session) -> None:
 
 
 @nox.session()
-def flake8(session: nox.Session) -> None:
+def ruff(session: nox.Session) -> None:
     session.run(
         "pdm",
         "sync",
         "--clean",
         "-G",
-        "flake8",
+        "ruff",
         "--no-default",
         "--no-editable",
         "--no-self",
         external=True,
     )
-    session.run("flake8")
+    session.run("ruff", ".")
 
 
 @nox.session()

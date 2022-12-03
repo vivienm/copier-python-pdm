@@ -9,7 +9,7 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
 * Pre-configured tools for code formatting, quality analysis, documentation and testing:
   * [black](https://github.com/psf/black)
   * [isort](https://pycqa.github.io/isort/)
-  * [flake8](https://flake8.pycqa.org/en/latest/) with [pydocstyle](https://github.com/PyCQA/pydocstyle/) plugin
+  * [ruff](https://github.com/charliermarsh/ruff)
   * [mypy](https://mypy.readthedocs.io/)
   * [pytest](https://docs.pytest.org/en/stable/)
   * [sphinx](https://sphinx-doc.org/) with [furo](https://pradyunsg.me/furo/) theme

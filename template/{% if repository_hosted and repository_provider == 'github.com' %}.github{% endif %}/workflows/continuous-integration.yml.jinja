@@ -45,7 +45,7 @@ jobs:
       with:
         nox-session: "isort"
 
-  flake8:
+  ruff:
 {% if project_type == "lib" %}
     needs: "lock"
 {% endif %}
@@ -54,7 +54,7 @@ jobs:
     - uses: "actions/checkout@v3"
     - uses: "./.github/actions/nox"
       with:
-        nox-session: "flake8"
+        nox-session: "ruff"
 
   mypy:
 {% if project_type == "lib" %}
