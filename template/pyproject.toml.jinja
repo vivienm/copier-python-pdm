@@ -54,6 +54,7 @@ isort = [
 ]
 mypy = [
     "mypy>=0.971",
+    "nox>=2022.1.7",
     "pytest>=7.1.2",
 ]
 pytest = [
@@ -85,6 +86,7 @@ profile = "black"
 
 
 [tool.mypy]
+strict = true
 exclude = ["^build/"]
 
 [[tool.mypy.overrides]]
