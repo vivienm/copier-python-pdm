@@ -108,7 +108,7 @@ copyright_date:
 python_version:
   help: "Python version specifier"
   type: "str"
-  default: ">=3.10"
+  default: ">=3.11"
 
 distribution_name:
   help: "Python package distribution name (on PyPI)"
