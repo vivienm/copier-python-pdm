@@ -22,13 +22,13 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
 Make sur all the [requirements](#requirements) are met, then:
 
 ```shell
-copier 'https://github.com/vivienm/copier-python-pdm.git' path/to/your/project
+copier copy --trust 'https://github.com/vivienm/copier-python-pdm.git' path/to/your/project
 ```
 
 Or even shorter:
 
 ```shell
-copier 'gh:vivienm/copier-python-pdm' /path/to/your/new/project
+copier copy --trust 'gh:vivienm/copier-python-pdm' /path/to/your/new/project
 ```
 
 ## Requirements
