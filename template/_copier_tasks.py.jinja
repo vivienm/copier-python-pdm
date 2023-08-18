@@ -9,7 +9,7 @@ if (Path(__file__).parent / ".git").exists():
     sys.exit()
 
 
-subprocess.run(["git", "init"], check=True)
+subprocess.run(["git", "init", "--quiet"], check=True)
 {% if repository_hosted and repository_provider == "github.com" %}
 origin = "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
 subprocess.run(["git", "remote", "add", "origin", origin])

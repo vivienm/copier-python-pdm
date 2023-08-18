@@ -19,39 +19,20 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
 
 ## Quickstart
 
-Make sur all the [requirements](#requirements) are met, then:
+To install Copier, please follow the installation instructions [here](https://copier.readthedocs.io/en/stable/#installation).
+
+Then, to create a new project based on this template, run:
 
 ```shell
-copier copy --trust 'https://github.com/vivienm/copier-python-pdm.git' path/to/your/project
+copier copy --trust 'https://github.com/vivienm/copier-python-pdm' path/to/your/project
 ```
 
-Or even shorter:
+and fill in the form.
+
+To update an existing project based on this template, run:
 
 ```shell
-copier copy --trust 'gh:vivienm/copier-python-pdm' /path/to/your/new/project
+copier update --trust
 ```
 
-## Requirements
-
-To use this Copier template, you will need:
-
-* [Git](https://git-scm.com/)
-* [Python 3](https://www.python.org/)
-* [Copier](https://copier.readthedocs.io/en/stable/)
-* [PDM](https://pdm.fming.dev/latest/)
-
-### Copier
-
-To install copier, you may follow its [installation instructions](https://copier.readthedocs.io/en/stable/#installation) or use [pipx](https://pipxproject.github.io/pipx/):
-
-```shell
-pipx install copier
-```
-
-### PDM
-
-To install PDM, you may follow its [installation instructions](https://pdm.fming.dev/latest/#installation), or use pipx:
-
-```shell
-pipx install pdm
-```
+You will also need to install PDM, please follow the installation instructions [here](https://pdm.fming.dev/latest/#installation).

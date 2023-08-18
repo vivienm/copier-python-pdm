@@ -14,6 +14,10 @@ project_name:
   help: "Project name"
   type: "str"
   placeholder: "Lorem Ipsum"
+  validator: >
+    {%- if not project_name -%}
+    You must provide a project name.
+    {%- endif -%}
 
 project_type:
   help: "Project type"
@@ -27,16 +31,32 @@ project_description:
   help: "Project description"
   type: "str"
   placeholder: "Lorem ipsum dolor sit amet."
+  validator: >
+    {%- if not project_description -%}
+    You must provide a project description.
+    {%- elif project_description[-1] not in ".!?…" -%}
+    The project description must end with a punctuation mark.
+    {%- endif -%}
 
 author_fullname:
   help: "Your full name"
   type: "str"
   placeholder: "John Doe"
+  validator: >
+    {%- if not author_fullname -%}
+    You must provide your full name.
+    {%- endif -%}
 
 author_email:
   help: "Your email"
   type: "str"
   placeholder: "john@doe.tld"
+  validator: >
+    {%- if not author_email -%}
+    You must provide your email.
+    {%- elif "@" not in author_email -%}
+    The email must contain an "@".
+    {%- endif -%}
 
 repository_hosted:
   help: "Host the repository online"
@@ -44,48 +64,67 @@ repository_hosted:
   default: true
 
 repository_provider:
+  when: "{{ repository_hosted }}"
   help: "Code hosting platform"
   type: "str"
-  when: "{{ repository_hosted }}"
   choices:
   - "github.com"
-  default: "{% if repository_hosted %}github.com{% endif %}"
+  default: "github.com"
 
 repository_namespace:
+  when: "{{ repository_hosted }}"
   help: "Namespace of the repository"
   type: "str"
-  when: "{{ repository_hosted }}"
+  validator: >
+    {%- if repository_hosted and not repository_namespace -%}
+    You must provide a repository namespace.
+    {%- endif -%}
 
 repository_name:
+  when: "{{ repository_hosted }}"
   help: "Name of the repository"
   type: "str"
-  when: "{{ repository_hosted }}"
-  default: "{% if project_type == 'lib' %}python-{% endif %}{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+  default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+  validator: >
+    {%- if repository_hosted and not repository_name -%}
+    You must provide a repository name.
+    {%- endif -%}
 
 repository_url:
+  when: "{{ repository_hosted }}"
   help: "URL of the repository"
   type: "str"
-  when: "{{ repository_hosted }}"
-  default: "{% if repository_hosted %}https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}{% endif %}"
+  default: >
+    {%- if repository_hosted -%}
+    https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}
+    {%- endif -%}
+  validator: >
+    {%- if repository_hosted and not repository_url -%}
+    You must provide a repository URL.
+    {%- endif -%}
 
 pages_enabled:
+  when: "{{ repository_hosted }}"
   help: "Publish documentation on Pages"
   type: "bool"
   default: "{{ project_type == 'lib' and repository_hosted and repository_provider == 'github.com' }}"
 
 pages_provider:
+  when: "{{ pages_enabled }}"
   help: "Page hosting provider"
   type: "str"
-  when: "{{ pages_enabled }}"
   choices:
   - "github.io"
-  default: "{% if pages_enabled %}github.io{% endif %}"
+  default: "github.io"
 
 pages_url:
+  when: "{{ pages_enabled }}"
   help: "URL of Pages"
   type: "str"
-  when: "{{ pages_enabled }}"
-  default: "{% if pages_enabled %}https://{{ repository_namespace }}.{{ pages_provider }}/{{ repository_name }}{% endif %}"
+  default: >
+    {%- if pages_enabled -%}
+    https://{{ repository_namespace }}.{{ pages_provider }}/{{ repository_name }}
+    {%- endif -%}
 
 copyright_license:
   help: "Project license"
@@ -99,29 +138,53 @@ copyright_holder:
   help: "Name of the person/entity holding the copyright"
   type: "str"
   default: "{{ author_fullname }}"
+  validator: >
+    {%- if not copyright_holder -%}
+    You must provide a copyright holder.
+    {%- endif -%}
 
-copyright_date:
-  help: "Copyright date"
-  type: "str"
-  default: "2023"
+copyright_year:
+  help: "Copyright year"
+  type: "int"
+  default: 2023
+  validator: >
+    {%- if not 2020 <= copyright_year <= 2100 -%}
+    You must provide a valid year between 2020 and 2100.
+    {%- endif -%}
 
 python_version:
   help: "Python version specifier"
   type: "str"
   default: ">=3.11"
+  validator: >
+    {%- if not python_version -%}
+    You must provide a Python version specifier.
+    {%- endif -%}
 
 distribution_name:
   help: "Python package distribution name (on PyPI)"
   type: "str"
   default: "{{ project_name | lower | replace('_', '-') | replace(' ', '-') }}"
+  validator: >
+    {%- if not distribution_name -%}
+    You must provide a distribution name.
+    {%- endif -%}
 
 module_name:
   help: "Python module name (for imports in Python code)"
   type: "str"
   default: "{{ project_name | lower | replace('-', '_') | replace(' ', '_') }}"
+  validator: >
+    {%- if not module_name -%}
+    You must provide a module name.
+    {%- endif -%}
 
 script_name:
+  when: "{{ project_type == 'bin' }}"
   help: "Python script name (for CLI)"
   type: "str"
-  when: "{{ project_type == 'bin' }}"
   default: "{{ project_name | lower | replace('_', '-') |replace(' ', '-') }}"
+  validator: >
+    {%- if project_type == 'bin' and not script_name -%}
+    You must provide a script name.
+    {%- endif -%}
