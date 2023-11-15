@@ -32,7 +32,7 @@ and fill in the form.
 To update an existing project based on this template, run:
 
 ```shell
-copier update --trust
+copier update --skip-answered --trust
 ```
 
 You will also need to install PDM, please follow the installation instructions [here](https://pdm.fming.dev/latest/#installation).
