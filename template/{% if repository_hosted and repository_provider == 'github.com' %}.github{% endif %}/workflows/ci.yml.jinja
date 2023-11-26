@@ -12,8 +12,9 @@ jobs:
       with:
         python-version: "{{ python_version }}"
     - uses: "actions/checkout@v3"
+    - run: "pdm venv create {{ python_version }}"
+    - run: "pdm install"
 {% if project_type == "lib" %}
-    - run: "pdm lock"
     - uses: "actions/upload-artifact@v3"
       with:
         name: "pdm-lockfile"
