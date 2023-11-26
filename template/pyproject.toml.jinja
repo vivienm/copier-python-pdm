@@ -2,7 +2,7 @@
 name = "{{ distribution_name }}"
 description = "{{ project_description }}"
 readme = "README.md"
-requires-python = "{{ python_version }}"
+requires-python = ">={{ python_version }}"
 license = {text = "{% if copyright_license == 'Proprietary' %}LicenseRef-Proprietary{% else %}{{ copyright_license }}{% endif %}"}
 authors = [
     {name = "{{ author_fullname }}", email = "{{ author_email }}"},
@@ -31,8 +31,6 @@ documentation = "{{ pages_url }}/docs/"
 {{ script_name }} = "{{ module_name }}.__main__:main"
 {% endif %}
 
-[project.optional-dependencies]
-
 
 [build-system]
 requires = ["pdm-pep517"]
@@ -43,55 +41,27 @@ build-backend = "pdm.pep517.api"
 package-dir = "src"
 
 [tool.pdm.dev-dependencies]
-black = [
-    "black>=22.6.0",
-]
-ruff = [
-    "ruff>=0.0.152",
-]
-isort = [
-    "isort>=5.10.1",
-]
-mypy = [
+dev = [
+{% if project_type == "lib" %}
+    "furo>=2022.6.21",
+{% endif %}
     "mypy>=0.971",
     "nox>=2022.1.7",
+    "pip-audit>=2.6.1",
     "pytest>=7.1.2",
-]
-pytest = [
-    "coverage[toml]>=6.4.4",
-    "pytest>=7.1.2",
-]
-coverage = [
-    "coverage[toml]>=6.4.4",
-]
+    "ruff>=0.0.152",
 {% if project_type == "lib" %}
-sphinx = [
-    "furo>=2022.6.21",
     "sphinx>=5.1.0",
-]
 {% endif %}
-safety = [
-    "safety>=2.1.1",
-]
-nox = [
-    "nox>=2022.1.7",
 ]
 
 [tool.pdm.version]
 source = "scm"
 
 
-[tool.isort]
-profile = "black"
-
-
 [tool.mypy]
 strict = true
 exclude = ["^build/"]
-
-[[tool.mypy.overrides]]
-module = ["nox"]
-ignore_missing_imports = true
 
 
 [tool.pytest.ini_options]
@@ -102,9 +72,7 @@ testpaths = [
 ]
 
 
-[tool.coverage.run]
-branch = true
-source = ["src"]
-
-[tool.coverage.report]
-show_missing = true
+[tool.ruff]
+extend-select= [
+  "I",  # isort
+]

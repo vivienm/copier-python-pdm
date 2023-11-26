@@ -1,0 +1,53 @@
+name: "Continuous integration"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "pdm-project/setup-pdm@main"
+      with:
+        python-version: "{{ python_version }}"
+    - uses: "actions/checkout@v3"
+{% if project_type == "lib" %}
+    - run: "pdm lock"
+    - uses: "actions/upload-artifact@v3"
+      with:
+        name: "pdm-lockfile"
+        path: "./pdm.lock"
+        retention-days: 7
+{% endif %}
+    - run: "pdm run nox"
+{% if pages_enabled %}
+    - uses: "actions/upload-artifact@v3"
+      with:
+        name: "sphinx"
+        path: "./docs/_build/html"
+        retention-days: 7
+{% endif %}
+{% if pages_enabled %}
+
+  pages:
+    if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+    needs: "ci"
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{ '{{' }} steps.deployment.outputs.page_url {{ '}}' }}"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/download-artifact@v3"
+      with:
+        name: "sphinx"
+        path: "${{ '{{' }} runner.temp {{ '}}' }}/pages/docs"
+    - uses: "actions/upload-pages-artifact@v1"
+      with:
+        path: "${{ '{{' }} runner.temp {{ '}}' }}/pages"
+    - id: "deployment"
+      uses: "actions/deploy-pages@v1"
+{% endif %}

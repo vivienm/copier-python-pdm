@@ -153,12 +153,12 @@ copyright_year:
     {%- endif -%}
 
 python_version:
-  help: "Python version specifier"
+  help: "Minimum Python version"
   type: "str"
-  default: ">=3.11"
+  default: "3.11"
   validator: >
     {%- if not python_version -%}
-    You must provide a Python version specifier.
+    You must provide a minimum Python version.
     {%- endif -%}
 
 distribution_name:
