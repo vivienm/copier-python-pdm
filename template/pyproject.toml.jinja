@@ -37,6 +37,9 @@ requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
 
 
+[tool.pdm]
+package-type = "{% if project_type == "bin" %}application{% else %}library{% endif %}"
+
 [tool.pdm.build]
 package-dir = "src"
 
