@@ -38,7 +38,7 @@ build-backend = "pdm.pep517.api"
 
 
 [tool.pdm]
-distribution = {% if project_type == "lib" %}true{% else %}false{% endif %}
+distribution = {% if project_type == "lib" %}true{% else %}false{% endif %}{{ '' }}
 
 [tool.pdm.build]
 package-dir = "src"
