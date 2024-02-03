@@ -38,7 +38,7 @@ build-backend = "pdm.backend"
 
 
 [tool.pdm]
-distribution = {% if project_type == "lib" %}true{% else %}false{% endif %}{{ '' }}
+distribution = true
 
 [tool.pdm.build]
 package-dir = "src"
