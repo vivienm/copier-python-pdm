@@ -19,6 +19,8 @@ An opinionated [Copier](https://copier.readthedocs.io/en/stable/) template for P
 
 To install Copier, please follow the installation instructions [here](https://copier.readthedocs.io/en/stable/#installation).
 
+You will also need to install PDM, the installation instructions can be found [here](https://pdm.fming.dev/latest/#installation).
+
 Then, to create a new project based on this template, run:
 
 ```shell
@@ -27,10 +29,14 @@ copier copy --trust 'https://github.com/vivienm/copier-python-pdm' path/to/your/
 
 and fill in the form.
 
+You may want to update the dependencies to their latest versions (in a distinct commit, to prevent conflicts when updating the template):
+
+```shell
+pdm update --update-all --unconstrained
+```
+
 To update an existing project based on this template, run:
 
 ```shell
 copier update --skip-answered --trust
 ```
-
-You will also need to install PDM, please follow the installation instructions [here](https://pdm.fming.dev/latest/#installation).
