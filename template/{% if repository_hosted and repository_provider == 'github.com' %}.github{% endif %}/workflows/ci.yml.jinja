@@ -11,11 +11,11 @@ jobs:
     - uses: "pdm-project/setup-pdm@main"
       with:
         python-version: "{{ python_version }}"
-    - uses: "actions/checkout@v3"
+    - uses: "actions/checkout@v4"
     - run: "pdm venv create {{ python_version }}"
     - run: "pdm install"
 {% if project_type == "lib" %}
-    - uses: "actions/upload-artifact@v3"
+    - uses: "actions/upload-artifact@v4"
       with:
         name: "pdm-lockfile"
         path: "./pdm.lock"
@@ -23,7 +23,7 @@ jobs:
 {% endif %}
     - run: "pdm run nox"
 {% if pages_enabled %}
-    - uses: "actions/upload-artifact@v3"
+    - uses: "actions/upload-artifact@v4"
       with:
         name: "sphinx"
         path: "./docs/_build/html"
@@ -42,13 +42,13 @@ jobs:
       url: "${{ '{{' }} steps.deployment.outputs.page_url {{ '}}' }}"
     runs-on: "ubuntu-latest"
     steps:
-    - uses: "actions/download-artifact@v3"
+    - uses: "actions/download-artifact@v4"
       with:
         name: "sphinx"
         path: "${{ '{{' }} runner.temp {{ '}}' }}/pages/docs"
-    - uses: "actions/upload-pages-artifact@v1"
+    - uses: "actions/upload-pages-artifact@v3"
       with:
         path: "${{ '{{' }} runner.temp {{ '}}' }}/pages"
     - id: "deployment"
-      uses: "actions/deploy-pages@v1"
+      uses: "actions/deploy-pages@v4"
 {% endif %}
