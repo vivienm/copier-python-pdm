@@ -155,7 +155,7 @@ copyright_year:
 python_version:
   help: "Minimum Python version"
   type: "str"
-  default: "3.11"
+  default: "3.12"
   validator: >
     {%- if not python_version -%}
     You must provide a minimum Python version.
